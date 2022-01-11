@@ -1,0 +1,541 @@
+{
+	"info": {
+		"_postman_id": "40249008-5713-45b4-8f3d-2bf56f90943d",
+		"name": "internship",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Movie Table",
+			"item": [
+				{
+					"name": "AllMovie",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/movie?page=0&size=8",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"movie"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "8"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Single Movie",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/movie/movie/3d02475d-4819-41dd-b4f4-6d5479cbc1a8",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"movie",
+								"movie",
+								"3d02475d-4819-41dd-b4f4-6d5479cbc1a8"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "movie Update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJkdW1teUBnbWFpbC5jb20iLCJpYXQiOjE2NDEzNzY3OTZ9.QMXObRKhZy-8mRSza5FbAKZZxLKHqyoLKIgFQJB0If0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"movieName\": \"1983\",\n    \"movieGenre\": \"action\",\n    \"poster\": \"https://picsum.photos/200/300\",\n    \"createdAt\": \"2022-01-03T12:21:52.000Z\",\n    \"updatedAt\": \"2022-01-03T12:21:52.000Z\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/movie/64467ae7-9cb0-4b71-81dc-6a52fb3ab5dc",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"movie",
+								"64467ae7-9cb0-4b71-81dc-6a52fb3ab5dc"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Movie",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJkdW1teUBnbWFpbC5jb20iLCJpYXQiOjE2NDEyOTg2NjR9.rBnGOil_xpG7YACru3NwtlewOxChLhJAUEE1yjdzye0",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/movie/3d02475d-4819-41dd-b4f4-6d5479cbc1a8",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"movie",
+								"3d02475d-4819-41dd-b4f4-6d5479cbc1a8"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "AddMovie",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJkdW1teUBnbWFpbC5jb20iLCJpYXQiOjE2NDEzNjQ1NDN9.m68Nl-muveYSlGQ1_FD_bNW6bAEvGRbAv2xrvbPuZtE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"movieName\":\"rangtara\",\n    \"movieGenre\":\"drama\",\n    \"poster\":\"https://picsum.photos/200/300\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/movie",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"movie"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "OnGoing Movie",
+			"item": [
+				{
+					"name": "Add Schedule",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJkdW1teUBnbWFpbC5jb20iLCJpYXQiOjE2NDEzODE2OTZ9.TSlXIMhKGMhoe48pe3p9DZ7i0dlVgdgsFXcwVWqJN4g",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"movieDate\":\"2022-01-09\",\n    \"movieTime\":\"14:40:00\",\n    \"seats\":\"90\",\n    \"costPerSeat\":\"150\",\n    \"movieId\":\"64467ae7-9cb0-4b71-81dc-6a52fb3ab5dc\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/currMovie/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"currMovie",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Single movie",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/currMovie/64467ae7-9cb0-4b71-81dc-6a52fb3ab5dc",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"currMovie",
+								"64467ae7-9cb0-4b71-81dc-6a52fb3ab5dc"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "edit movie schedule",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJkdW1teUBnbWFpbC5jb20iLCJpYXQiOjE2NDEzODE2OTZ9.TSlXIMhKGMhoe48pe3p9DZ7i0dlVgdgsFXcwVWqJN4g",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"movieDate\":\"2022-01-04\",\n    \"movieTime\":\"00:10:00\",\n    \"seats\":\"120\",\n    \"costPerSeat\":\"150\",\n    \"movieId\":\"dbf81956-cb18-4c49-a22a-b800ef780137\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/currMovie/8db358b2-aa8f-470e-949c-92b7d4b25522",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"currMovie",
+								"8db358b2-aa8f-470e-949c-92b7d4b25522"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete single movie schedule",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJkdW1teUBnbWFpbC5jb20iLCJpYXQiOjE2NDEzODE2OTZ9.TSlXIMhKGMhoe48pe3p9DZ7i0dlVgdgsFXcwVWqJN4g",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/currMovie/8db358b2-aa8f-470e-949c-92b7d4b25522",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"currMovie",
+								"8db358b2-aa8f-470e-949c-92b7d4b25522"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "all Current Movie",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/currMovie/currrent/list?page=0&size=8",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"currMovie",
+								"currrent",
+								"list"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "8"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "User Registration",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"fullname\":\"dumm\",\n    \"email\":\"dumm@gmail.com\",\n    \"password\":\"dummydummy\"\n}   ",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\":\"dummy@gmail.com\",\n    \"password\":\"dummydummy\"\n}   ",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Bookings",
+			"item": [
+				{
+					"name": "BookShow",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJhdGxpcUBnbWFpbC5jb20iLCJpYXQiOjE2NDEzNjYyMjl9.SvfelhD-HMpn1n7CpJvlJ18K7vQN8GEcMJZ9ZtZRHeA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"seats\": \"5\",\n    \"payableAmount\": \"1000\",\n    \"ongoingId\": \"884772cb-94f7-497c-b03f-fe392c617cc7\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/booking",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"booking"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "my Bookings",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJhdGxpcUBnbWFpbC5jb20iLCJpYXQiOjE2NDEzNjYzODh9.Y3irHsyAOFOJ0b45nK7CILHb-AwBoY4l8LGp4U6pzKw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/booking/mybookings",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"booking",
+								"mybookings"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Whole Booking list(Admin)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJkdW1teUBnbWFpbC5jb20iLCJpYXQiOjE2NDEzNjY2MDh9.3woiUomFL900mEoh2Y0Jp1A3kw3bnImkbEb4c9PjEEo",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/booking/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"booking",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
