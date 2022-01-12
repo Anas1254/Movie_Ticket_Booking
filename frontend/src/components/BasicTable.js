@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState, useEffect } from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -6,10 +6,8 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-// import axios from "axios";
-import { useState, useEffect } from "react";
-// import { CircularProgress } from "@mui/material";
 import Button from "@mui/material/Button";
+import { Link } from "react-router-dom";
 
 function BasicTable(props) {
   const [movieScheduleData, setMovieScheduleData] = useState([]);
@@ -44,7 +42,9 @@ function BasicTable(props) {
               <TableCell align="right">{row.movieDate}</TableCell>
               <TableCell align="right">{row.seats}</TableCell>
               <TableCell align="right">{row.costPerSeat}</TableCell>
-              <Button variant="contained">BookShow</Button>
+              <Link to={`/user/bookshow/${row.movieId}`}>
+                <Button variant="contained">BookShow</Button>
+              </Link>
             </TableRow>
           ))}
         </TableBody>

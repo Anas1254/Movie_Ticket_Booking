@@ -1,5 +1,4 @@
 import "./App.css";
-// import "./components/MovieCards.css";
 import GridCard from "./components/stylingComponents/GridCard.js";
 import ButtonAppBar from "./components/stylingComponents/ButtonAppBar";
 import Login from "./components/Authenticatio/Login";
@@ -10,7 +9,7 @@ import MovieData from "./pages/MovieData";
 import OngoingMovieData from "./pages/OngoingMovieData";
 import EditPageMovieForm from "./pages/EditPageMovieForm";
 import EditPageOngoingMovie from "./pages/EditPageOngoingMovie";
-// import movieList from "./data/MovieListData";
+import BookshowForm from "./pages/BookshowForm";
 
 function App() {
   return (
@@ -20,19 +19,20 @@ function App() {
         <Route exact path="/" element={<GridCard />} />
         <Route exact path="/login" element={<Login />} />
         <Route exact path="/signup" element={<SignUp />} />
+        <Route exact path="/bookshow/:id" element={<BookShow />} />
         <Route exact path="/admin/moviedata" element={<MovieData />} />
         <Route
           exact
           path="/admin/ongoingmoviedata"
           element={<OngoingMovieData />}
         />
-        <Route exact path="/bookshow/:id" element={<BookShow />} />
-        <Route exact path="/pages/EditPage" element={<EditPageMovieForm />} />
+        <Route exact path="/admin/editMovie" element={<EditPageMovieForm />} />
         <Route
           exact
-          path="/pages/EditPageOngoingMovie"
+          path="/admin/editOngoingMovie"
           element={<EditPageOngoingMovie />}
         />
+        <Route exact path="/user/bookshow/:id" element={<BookshowForm />} />
       </Routes>
     </div>
   );

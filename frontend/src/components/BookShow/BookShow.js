@@ -17,8 +17,9 @@ const BookShow = () => {
   //Send get request to backend for getting list of movies
   async function FetchBookMovieData() {
     const values = await axios.get(
-      `http://5d53-2405-201-2010-2834-4c5c-ca9e-4622-4b86.ngrok.io/api/currMovie/${id}`
+      `http://cb59-2405-201-2010-2834-21e5-7c21-4ca6-5586.ngrok.io/api/currMovie/${id}`
     );
+    console.log(values);
     if (values) {
       setMovieValues(values.data.data);
       setMovieName(values.data.data[0].movie.movieName);

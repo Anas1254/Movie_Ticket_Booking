@@ -27,7 +27,7 @@ function Login() {
 
   const loginHandler = async (email, password) => {
     const response = await axios.post(
-      "http://5d53-2405-201-2010-2834-4c5c-ca9e-4622-4b86.ngrok.io/api/login",
+      "http://cb59-2405-201-2010-2834-21e5-7c21-4ca6-5586.ngrok.io/api/login",
       { email: email, password: password }
     );
     if (response.data.statusCode === 200) {
