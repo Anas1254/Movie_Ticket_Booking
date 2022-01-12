@@ -8,7 +8,11 @@ import {
   MenuItem,
   InputLabel,
   CircularProgress,
+  Button,
+  Paper,
+  Avatar,
 } from "@mui/material";
+import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOutlined";
 import axios from "axios";
 
 const BookshowForm = () => {
@@ -17,9 +21,13 @@ const BookshowForm = () => {
   const [movieTime, setMovieTime] = useState([]);
   const [costPerSeat, setCostPerSeat] = useState(0);
   const [seats, setSeats] = useState(0);
+  const [inputSeats, setInputSeats] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
 
   const { id } = useParams();
+  const paperStyle = { padding: "30px 20px", width: 400, margin: "60px auto" };
+  const avatarStyle = { backgroundColor: "#1bbd7e" };
+  const headerStyle = { margin: "5px auto" };
 
   const getMovieData = async () => {
     const response = await axios.get(
@@ -47,62 +55,101 @@ const BookshowForm = () => {
 
   const handleMovieDateChange = () => {};
   const handleMovieTimeChange = () => {};
-  const handleMovieSeatChange = () => {};
+  const handleMovieSeatChange = (event) => {
+    setInputSeats(event.target.value);
+  };
+  const bookshow = async () => {
+    const response = await axios.post(
+      "http://cb59-2405-201-2010-2834-21e5-7c21-4ca6-5586.ngrok.io/api/booking",
+      {
+        seats: "",
+        payableAmount: "",
+        ongoingId: "",
+      }
+    );
+  };
+  const submitHandler = (event) => {
+    event.preventDefault();
+  };
 
   return (
     <Grid container direction="column">
-      {isLoading ? (
-        <CircularProgress />
-      ) : (
-        <form>
-          <Grid item>
-            <TextField
-              id="outlined-helperText"
-              label="Movie Name"
-              value={movieName}
-            />
-          </Grid>
-          <Grid>
-            <FormControl fullWidth>
-              <InputLabel id="">Movie Date</InputLabel>
-              <Select
-                labelId="movie_date"
-                id="movie_date"
-                value={movieDate}
-                label="Movie Date"
-                onChange={handleMovieDateChange}
-              >
-                {movieDate.map((item) => {
-                  return <MenuItem value={item}>{item}</MenuItem>;
-                })}
-              </Select>
-            </FormControl>
-          </Grid>
-          <Grid item>
-            <FormControl fullWidth>
-              <InputLabel id="">Movie Time</InputLabel>
-              <Select
-                labelId="movie_time"
-                id="movie_time"
-                value={movieTime}
-                label="Movie Time"
-                onChange={handleMovieTimeChange}
-              >
-                {movieTime.map((item) => {
-                  return <MenuItem value={item}>{item}</MenuItem>;
-                })}
-              </Select>
-            </FormControl>
-          </Grid>
-          <Grid item>
-            <TextField
-              id="outlined-helperText"
-              label="Movie Name"
-              value={movieName}
-            />
-          </Grid>
-        </form>
-      )}
+      <Paper elevation="10" style={paperStyle}>
+        {isLoading ? (
+          <CircularProgress />
+        ) : (
+          <form onSubmit={submitHandler} style={{ margin: "10px auto" }}>
+            <Grid align="center">
+              <Avatar style={avatarStyle}>
+                <AddCircleOutlineOutlinedIcon />
+              </Avatar>
+              <h2 style={headerStyle}>BookShow</h2>
+            </Grid>
+            <Grid item>
+              <TextField
+                id="outlined-helperText"
+                label="Movie Name"
+                value={movieName}
+                disabled
+                fullWidth
+              />
+            </Grid>
+            <Grid>
+              <FormControl fullWidth>
+                <InputLabel id="">Movie Date</InputLabel>
+                <Select
+                  labelId="movie_date"
+                  id="movie_date"
+                  value={movieDate}
+                  label="Movie Date"
+                  onChange={handleMovieDateChange}
+                >
+                  {movieDate.map((item) => {
+                    return <MenuItem value={item}>{item}</MenuItem>;
+                  })}
+                </Select>
+              </FormControl>
+            </Grid>
+            <Grid item>
+              <FormControl fullWidth>
+                <InputLabel id="">Movie Time</InputLabel>
+                <Select
+                  labelId="movie_time"
+                  id="movie_time"
+                  value={movieTime}
+                  label="Movie Time"
+                  onChange={handleMovieTimeChange}
+                >
+                  {movieTime.map((item) => {
+                    return <MenuItem value={item}>{item}</MenuItem>;
+                  })}
+                </Select>
+              </FormControl>
+            </Grid>
+            <Grid item>
+              <TextField
+                id="outlined-helperText"
+                label="Number of Seats"
+                value={inputSeats}
+                onChange={handleMovieSeatChange}
+                fullWidth
+              />
+            </Grid>
+            <Grid item>
+              <TextField
+                id="outlined-helperText"
+                label="Cost Per Seat"
+                value={costPerSeat}
+                disabled
+                fullWidth
+              />
+            </Grid>
+            <Grid item>
+              <Button variant="contained">Submit</Button>
+            </Grid>
+          </form>
+        )}
+      </Paper>
     </Grid>
   );
 };
