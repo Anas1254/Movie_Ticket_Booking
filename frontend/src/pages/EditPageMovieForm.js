@@ -1,49 +1,121 @@
+import React, { useState, useEffect } from "react";
 import {
-  Grid,
-  Paper,
-  Avatar,
-  TextField,
-  Button,
-  Typography,
+	Grid,
+	Paper,
+	TextField,
+	Button,
+	Typography,
+	CircularProgress,
 } from "@mui/material";
-import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOutlined";
-import React from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 function EditPageMovie(props) {
-  const paperStyle = { padding: "30px 20px", width: 400, margin: "20px auto" };
-  const headerStyle = { margin: "5px auto" };
-  const avatarStyle = { backgroundColor: "#1bbd7e" };
-  return (
-    <Grid>
-      <Paper elevation="10" style={paperStyle}>
-        <Grid align="center">
-          <Avatar style={avatarStyle}>
-            <AddCircleOutlineOutlinedIcon />
-          </Avatar>
-          <h2 style={headerStyle}>EditPage</h2>
-          <Typography>Enter Changes</Typography>
-        </Grid>
-        <form>
-          <TextField
-            fullWidth
-            label="MovieName"
-            placeholder="Enter MovieName"
-          />
-          <TextField
-            fullWidth
-            label="MovieGenre"
-            placeholder="Enter MovieGenre"
-          />
+	const [userToken, setUserToken] = useState("");
+	const [isLoading, setIsLoading] = useState(false);
+	const [movieName, setMovieName] = useState("");
+	const [moviePoster, setMoviePoster] = useState("");
+	const [movieGenre, setMovieGenre] = useState("");
 
-          <TextField fullWidth label="MovieUrl" placeholder="Enter Movie Url" />
+	const { id } = useParams();
+	const navigate = useNavigate();
 
-          <Button fullWidth type="submit" variant="contained" color="primary">
-            update
-          </Button>
-        </form>
-      </Paper>
-    </Grid>
-  );
+	const paperStyle = { padding: "30px 20px", width: 400, margin: "20px auto" };
+	const headerStyle = { margin: "5px auto" };
+
+	const getMovieData = async () => {
+		const response = await axios.get(
+			`${process.env.REACT_APP_BACKEND_URL}/api/currMovie/${id}`
+		);
+		if (response.data) {
+			setMovieName(response.data.data[0].movie.movieName);
+			setMovieGenre(response.data.data[0].movie.movieGenre);
+			setMoviePoster(response.data.data[0].movie.poster);
+		}
+	};
+
+	useEffect(() => {
+		setUserToken(
+			localStorage.getItem("userToken") ? localStorage.getItem("userToken") : ""
+		);
+		setIsLoading(true);
+		getMovieData();
+		setIsLoading(false);
+	}, []);
+
+	const updateMovieData = async () => {
+		const response = await axios.put(
+			`${process.env.REACT_APP_BACKEND_URL}/api/movie/${id}`,
+			{
+				movieName,
+				movieGenre,
+				moviePoster,
+			},
+			{
+				headers: {
+					Authorization: `Bearer ${userToken}`,
+				},
+			}
+		);
+		console.log(response);
+		if (response.data.statusCode === 202) {
+			navigate("/admin/moviedata");
+		} else {
+			alert("Update Failed!");
+		}
+	};
+
+	return (
+		<Grid>
+			{isLoading ? (
+				<CircularProgress />
+			) : (
+				<Paper elevation="10" style={paperStyle}>
+					<Grid align="center">
+						<h2 style={headerStyle}>Edit Movie</h2>
+						<Typography>Enter Changes</Typography>
+					</Grid>
+					<form>
+						<TextField
+							fullWidth
+							label="MovieName"
+							placeholder="Enter MovieName"
+							value={movieName}
+							onChange={(e) => setMovieName(e.target.value)}
+						/>
+						<TextField
+							fullWidth
+							label="MovieGenre"
+							placeholder="Enter MovieGenre"
+							value={movieGenre}
+							onChange={(e) => setMovieGenre(e.target.value)}
+						/>
+
+						<TextField
+							fullWidth
+							label="MovieUrl"
+							placeholder="Enter Movie Url"
+							value={moviePoster}
+							onChange={(e) => setMoviePoster(e.target.value)}
+						/>
+
+						<Button
+							fullWidth
+							type="submit"
+							variant="contained"
+							color="primary"
+							onClick={(e) => {
+								e.preventDefault();
+								updateMovieData();
+							}}
+						>
+							Update
+						</Button>
+					</form>
+				</Paper>
+			)}
+		</Grid>
+	);
 }
 
 export default EditPageMovie;

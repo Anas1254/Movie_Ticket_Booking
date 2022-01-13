@@ -1,54 +1,78 @@
 import React from "react";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
-import movieList from "../../data/MovieListData";
+import {
+	Table,
+	TableHead,
+	TableBody,
+	TableCell,
+	TableContainer,
+	TableRow,
+	Paper,
+} from "@mui/material";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 import CustomButton from "../stylingComponents/Button.js";
-import { Link } from "react-router-dom";
 
-const MoviesTable = () => {
-  return (
-    <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 650 }} aria-label="simple table">
-        <TableHead>
-          <TableRow>
-            <TableCell>Movie Name</TableCell>
-            <TableCell align="right">Movie Genre</TableCell>
-            <TableCell align="right">Movie URL</TableCell>
+const MoviesTable = (props) => {
+	const navigate = useNavigate();
 
-            <TableCell align="right">Edit</TableCell>
-            <TableCell align="right">Delete</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {movieList.map((item) => (
-            <TableRow
-              key={item.id}
-              sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-            >
-              <TableCell component="th" scope="row">
-                {item.movieName}
-              </TableCell>
-              <TableCell align="right">{item.movieGenre}</TableCell>
-              <TableCell align="right">{item.poster}</TableCell>
-              <TableCell align="right">
-                <Link to="../pages/EditPage">
-                  <CustomButton title="Edit" />
-                </Link>
-              </TableCell>
-              <TableCell align="right">
-                <CustomButton title="Delete" />
-              </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
-  );
+	const deleteMovieHandler = async (deleteId) => {
+		const userToken = localStorage.getItem("userToken")
+			? localStorage.getItem("userToken")
+			: navigate("/login");
+		const response = await axios.delete(
+			`${process.env.REACT_APP_BACKEND_URL}/api/movie/${deleteId}`,
+			{
+				headers: {
+					Authorization: `Bearer ${userToken}`,
+				},
+			}
+		);
+		if (response.data.statusCode === 200) {
+			alert("Deleted Successfully");
+		}
+	};
+
+	return (
+		<TableContainer component={Paper}>
+			<Table sx={{ minWidth: 650 }} aria-label="simple table">
+				<TableHead>
+					<TableRow>
+						<TableCell>Movie Name</TableCell>
+						<TableCell align="right">Movie Genre</TableCell>
+						<TableCell align="right">Movie URL</TableCell>
+
+						<TableCell align="right">Edit</TableCell>
+						<TableCell align="right">Delete</TableCell>
+					</TableRow>
+				</TableHead>
+				<TableBody>
+					{props.movieList.map((item) => (
+						<TableRow
+							key={item.id}
+							sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+						>
+							<TableCell component="th" scope="row">
+								{item.movieName}
+							</TableCell>
+							<TableCell align="right">{item.movieGenre}</TableCell>
+							<TableCell align="right">{item.poster}</TableCell>
+							<TableCell align="right">
+								<Link to={`/admin/editMovie/${item.id}`}>
+									<CustomButton title="Edit" />
+								</Link>
+							</TableCell>
+							<TableCell align="right">
+								<CustomButton
+									title="Delete"
+									onClick={() => deleteMovieHandler(item.id)}
+								/>
+							</TableCell>
+						</TableRow>
+					))}
+				</TableBody>
+			</Table>
+		</TableContainer>
+	);
 };
 
 export default MoviesTable;
