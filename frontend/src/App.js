@@ -10,6 +10,7 @@ import OngoingMovieData from "./pages/OngoingMovieData";
 import EditPageMovieForm from "./pages/EditPageMovieForm";
 import EditPageOngoingMovie from "./pages/EditPageOngoingMovie";
 import BookshowForm from "./pages/BookshowForm";
+import { MyBookings } from "./pages/MyBookings";
 import "./App.css";
 
 function App() {
@@ -23,6 +24,14 @@ function App() {
 				<Route exact path="/bookshow/:id" element={<BookShow />} />
 
 				{/* Below are all protected routes */}
+				<Route exact path="/user/bookshow/:id" element={<PrivateRouter />}>
+					<Route exact path="/user/bookshow/:id" element={<BookshowForm />} />
+				</Route>
+
+				<Route exact path="/user/my-bookings" element={<PrivateRouter />}>
+					<Route exact path="/user/my-bookings" element={<MyBookings />} />
+				</Route>
+
 				<Route exact path="/admin/moviedata" element={<PrivateRouter />}>
 					<Route exact path="/admin/moviedata" element={<MovieData />} />
 				</Route>
@@ -53,10 +62,6 @@ function App() {
 						path="/admin/editMovie/:id"
 						element={<EditPageMovieForm />}
 					/>
-				</Route>
-
-				<Route exact path="/user/bookshow/:id" element={<PrivateRouter />}>
-					<Route exact path="/user/bookshow/:id" element={<BookshowForm />} />
 				</Route>
 			</Routes>
 		</div>

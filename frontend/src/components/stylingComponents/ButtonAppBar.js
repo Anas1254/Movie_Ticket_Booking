@@ -26,9 +26,7 @@ function ButtonAppBar() {
 		setUserToken(
 			localStorage.getItem("userToken") ? localStorage.getItem("userToken") : ""
 		);
-		setIsAdmin(
-			localStorage.getItem("isAdmin") ? localStorage.getItem("isAdmin") : false
-		);
+		setIsAdmin(localStorage.getItem("isAdmin") === "true" ? true : false);
 	}, [userToken, isAdmin]);
 
 	const [anchorEl, setAnchorEl] = useState(null);
@@ -49,6 +47,13 @@ function ButtonAppBar() {
 							<span style={{ color: "#ffffff" }}>Movies</span>
 						</Link>
 					</Typography>
+					{userToken && (
+						<Button color="inherit">
+							<Link to="/user/my-bookings">
+								<span style={{ color: "#ffffff" }}>My Bookings</span>
+							</Link>
+						</Button>
+					)}
 					{userToken ? (
 						<Button color="inherit" onClick={logoutHandler}>
 							<span style={{ color: "#ffffff" }}>Logout</span>

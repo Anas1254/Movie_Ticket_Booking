@@ -13,7 +13,7 @@ const OngoingMovieData = () => {
 
 	async function getMovieData() {
 		const values = await axios.get(
-			`${process.env.REACT_APP_BACKEND_URL}/api/currMovie/currrent/list?page=0&size=8`,
+			`${process.env.REACT_APP_BACKEND_URL}/api/currMovie/current/list?page=0&size=8`,
 			{
 				headers: {
 					Authorization: `Bearer ${userToken}`,
@@ -36,7 +36,7 @@ const OngoingMovieData = () => {
 		setIsLoading(true);
 		getMovieData();
 		setIsLoading(false);
-	}, [movieList]);
+	}, []);
 
 	return (
 		<Grid container item alignContent="center" justifyContent="center">
