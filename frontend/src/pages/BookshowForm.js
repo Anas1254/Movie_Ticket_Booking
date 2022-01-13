@@ -16,15 +16,11 @@ import axios from "axios";
 
 const BookshowForm = () => {
 	const [movieName, setMovieName] = useState("");
-	const [movieDate, setMovieDate] = useState([]);
-	const [movieTime, setMovieTime] = useState([]);
+	const [movieDate, setMovieDate] = useState("");
+	const [movieTime, setMovieTime] = useState("");
 	const [costPerSeat, setCostPerSeat] = useState(0);
 	const [seats, setSeats] = useState(0);
-
 	const [inputSeats, setInputSeats] = useState(1);
-	const [inputMovieDate, setInputMovieDate] = useState("");
-	const [inputMovieTime, setInputMovieTime] = useState("");
-
 	const [isLoading, setIsLoading] = useState(false);
 
 	const { id } = useParams();
@@ -38,13 +34,8 @@ const BookshowForm = () => {
 			`${process.env.REACT_APP_BACKEND_URL}/api/currMovie/${id}`
 		);
 		if (response.data) {
-			const date = response.data.data.map((item) => item.movieDate);
-			const time = response.data.data.map((item) => item.movieTime);
-			console.log(response.data);
-			console.log(date);
-			console.log(time);
-			setMovieDate(date);
-			setMovieTime(time);
+			setMovieDate(response.data.data[0].movieTime);
+			setMovieTime(response.data.data[0].movieDate);
 			setMovieName(response.data.data[0].movie.movieName);
 			setCostPerSeat(response.data.data[0].costPerSeat);
 			setSeats(response.data.data[0].seats);
@@ -57,12 +48,6 @@ const BookshowForm = () => {
 		setIsLoading(false);
 	}, []);
 
-	const handleMovieDateChange = (event) => {
-		setInputMovieDate(event.target.value);
-	};
-	const handleMovieTimeChange = (event) => {
-		setInputMovieTime(event.target.value);
-	};
 	const handleMovieSeatChange = (event) => {
 		setInputSeats(event.target.value);
 	};
@@ -120,36 +105,21 @@ const BookshowForm = () => {
 							/>
 						</Grid>
 						<Grid item>
-							<FormControl fullWidth>
-								<InputLabel id="">Movie Date</InputLabel>
-								<Select
-									labelId="movie_date"
-									id="movie_date"
-									value={inputMovieDate}
-									label="Movie Date"
-									onChange={handleMovieDateChange}
-								>
-									{movieDate.map((item) => {
-										return <MenuItem value={item}>{item}</MenuItem>;
-									})}
-								</Select>
-							</FormControl>
+							<TextField
+								label="Movie Date"
+								id="movie_date"
+								value={movieDate}
+								disabled
+								fullWidth
+							/>
 						</Grid>
 						<Grid item>
-							<FormControl fullWidth>
-								<InputLabel id="">Movie Time</InputLabel>
-								<Select
-									labelId="movie_time"
-									id="movie_time"
-									value={inputMovieTime}
-									label="Movie Time"
-									onChange={handleMovieTimeChange}
-								>
-									{movieTime.map((item) => {
-										return <MenuItem value={item}>{item}</MenuItem>;
-									})}
-								</Select>
-							</FormControl>
+							<TextField
+								id="movie_time"
+								value={movieTime}
+								label="Movie Time"
+								disabled
+							/>
 						</Grid>
 						<Grid item>
 							<TextField

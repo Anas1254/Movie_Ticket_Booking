@@ -34,8 +34,9 @@ function SignUp() {
 			localStorage.setItem("userName", fullname);
 			localStorage.setItem("isAdmin", response.data.data.user.isAdmin);
 			navigate("/");
+			window.location.reload();
 		} else {
-			alert("Signup Failed please try agian!");
+			alert("Signup Failed please try again!");
 		}
 	};
 

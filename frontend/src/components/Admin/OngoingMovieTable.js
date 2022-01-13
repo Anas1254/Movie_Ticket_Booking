@@ -33,7 +33,7 @@ function OngoingMovie(props) {
 							sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
 						>
 							{console.log(item.movie)}
-							<TableCell>Movie Name</TableCell>
+							<TableCell>{item.movie.movieName}</TableCell>
 							<TableCell>{item.movieTime}</TableCell>
 							<TableCell align="right">{item.movieDate}</TableCell>
 							<TableCell align="right">{item.seats}</TableCell>

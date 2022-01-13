@@ -25,6 +25,7 @@ function Login() {
 			localStorage.setItem("userName", response.data.data.user.name);
 			localStorage.setItem("isAdmin", response.data.data.user.isAdmin);
 			navigate("/");
+			window.location.reload();
 		} else {
 			alert("Login Failed please try again!");
 		}

@@ -5,6 +5,7 @@ import { CircularProgress } from "@mui/material";
 import axios from "axios";
 
 function GridCard() {
+	const [userToken, setUserToken] = useState("");
 	const [isLoading, setIsLoading] = useState(false);
 	const [movieList, setMovieList] = useState([]); //this values is coming form the backend(movieList)
 
@@ -31,10 +32,15 @@ function GridCard() {
 
 	// useEffect is triggered automatically when a page is loaded
 	useEffect(() => {
+		// console.log("Use effect");
+		// location.reload();
+		setUserToken(
+			localStorage.getItem("userToken") ? localStorage.getItem("userToken") : ""
+		);
 		setIsLoading(true);
 		getMovieData();
 		setIsLoading(false);
-	}, []);
+	}, [userToken]);
 
 	return (
 		<Grid

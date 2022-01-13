@@ -10,47 +10,47 @@ import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
 
 function BasicTable(props) {
-  const [movieScheduleData, setMovieScheduleData] = useState([]);
+	const [movieScheduleData, setMovieScheduleData] = useState([]);
 
-  useEffect(
-    () => setMovieScheduleData(props.movieSchedule),
-    [props.movieSchedule]
-  );
+	useEffect(
+		() => setMovieScheduleData(props.movieSchedule),
+		[props.movieSchedule]
+	);
 
-  return (
-    <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 650 }} aria-label="simple table">
-        <TableHead>
-          <TableRow>
-            <TableCell>Sr No</TableCell>
-            <TableCell align="right">Time</TableCell>
-            <TableCell align="right">Date</TableCell>
-            <TableCell align="right">Seats</TableCell>
-            <TableCell align="right">Price</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {movieScheduleData.map((row, index) => (
-            <TableRow
-              key={row.id}
-              sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-            >
-              <TableCell component="th" scope="row">
-                {index + 1}
-              </TableCell>
-              <TableCell align="right">{row.movieTime}</TableCell>
-              <TableCell align="right">{row.movieDate}</TableCell>
-              <TableCell align="right">{row.seats}</TableCell>
-              <TableCell align="right">{row.costPerSeat}</TableCell>
-              <Link to={`/user/bookshow/${row.movieId}`}>
-                <Button variant="contained">BookShow</Button>
-              </Link>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
-  );
+	return (
+		<TableContainer component={Paper}>
+			<Table sx={{ minWidth: 650 }} aria-label="simple table">
+				<TableHead>
+					<TableRow>
+						<TableCell>Sr No</TableCell>
+						<TableCell align="right">Time</TableCell>
+						<TableCell align="right">Date</TableCell>
+						<TableCell align="right">Seats</TableCell>
+						<TableCell align="right">Price</TableCell>
+					</TableRow>
+				</TableHead>
+				<TableBody>
+					{movieScheduleData.map((row, index) => (
+						<TableRow
+							key={row.id}
+							sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+						>
+							<TableCell component="th" scope="row">
+								{index + 1}
+							</TableCell>
+							<TableCell align="right">{row.movieTime}</TableCell>
+							<TableCell align="right">{row.movieDate}</TableCell>
+							<TableCell align="right">{row.seats}</TableCell>
+							<TableCell align="right">{row.costPerSeat}</TableCell>
+							<Link to={`/user/bookshow/${row.id}`}>
+								<Button variant="contained">BookShow</Button>
+							</Link>
+						</TableRow>
+					))}
+				</TableBody>
+			</Table>
+		</TableContainer>
+	);
 }
 
 export default BasicTable;

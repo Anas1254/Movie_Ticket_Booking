@@ -23,6 +23,7 @@ function ButtonAppBar() {
 	};
 
 	useEffect(() => {
+		console.log("use Effect");
 		setUserToken(
 			localStorage.getItem("userToken") ? localStorage.getItem("userToken") : ""
 		);
