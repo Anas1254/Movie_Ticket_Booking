@@ -40,11 +40,11 @@ const BookShow = () => {
 				<CircularProgress />
 			) : (
 				<>
-					<Grid container spacing={4} direction="row">
-						<Grid item>
+					<Grid container spacing={2} direction="row" alignItems="center">
+						<Grid item sx={{ margin: "40px" }}>
 							<img src={movieImage} alt="Movie-Poster" />
 						</Grid>
-						<Grid item justifyContent="center" alignContent="center">
+						<Grid>
 							<h3>Movie Name: {movieName}</h3>
 							<h4>Movie Genre: {movieGenre}</h4>
 						</Grid>

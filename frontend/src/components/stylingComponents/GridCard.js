@@ -48,9 +48,10 @@ function GridCard() {
 		<Grid
 			container
 			direction="row"
-			justifyContent="center"
+			justifyContent="space-around"
 			alignItems="center"
 			spacing={8}
+			sx={{ padding: "40px" }}
 		>
 			{isLoading ? (
 				<CircularProgress />

@@ -89,7 +89,7 @@ const AddOnGoingForm = () => {
 				<CircularProgress />
 			) : (
 				<Paper elevation="10" style={paperStyle}>
-					<Grid align="center">
+					<Grid align="center" marginBottom="20px">
 						<h2 style={headerStyle}>Add New Movie Schedule</h2>
 						<Typography>Enter New Movie Schedule</Typography>
 					</Grid>
@@ -105,6 +105,7 @@ const AddOnGoingForm = () => {
 							}}
 							value={inputMovieDate}
 							onChange={(e) => setMovieDate(e.target.value)}
+							sx={{ marginBottom: "20px" }}
 						/>
 						<TextField
 							fullWidth
@@ -114,6 +115,7 @@ const AddOnGoingForm = () => {
 							placeholder="Enter Movie Time"
 							value={inputMovieTime}
 							onChange={(e) => setMovieTime(e.target.value)}
+							sx={{ marginBottom: "20px" }}
 						/>
 
 						<TextField
@@ -122,6 +124,7 @@ const AddOnGoingForm = () => {
 							placeholder="Enter Movie seats"
 							value={inputSeats}
 							onChange={(e) => setMovieSeats(e.target.value)}
+							sx={{ marginBottom: "20px" }}
 						/>
 						<TextField
 							fullWidth
@@ -129,9 +132,10 @@ const AddOnGoingForm = () => {
 							placeholder="Enter cost per seats"
 							value={inputCostPerSeats}
 							onChange={(e) => setCostPerSeats(e.target.value)}
+							sx={{ marginBottom: "20px" }}
 						/>
 
-						<FormControl fullWidth>
+						<FormControl fullWidth sx={{ marginBottom: "20px" }}>
 							<InputLabel id="movieName">Movie Name</InputLabel>
 							<Select
 								labelId="movieName"
@@ -155,6 +159,7 @@ const AddOnGoingForm = () => {
 								event.preventDefault();
 								addOngoing();
 							}}
+							sx={{ marginBottom: "20px" }}
 						>
 							ADD
 						</Button>

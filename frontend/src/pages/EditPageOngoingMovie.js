@@ -18,7 +18,7 @@ function EditPageOngoingMovie() {
 
 	const [movieId, setMovieId] = useState("");
 	const [movieName, setMovieName] = useState("");
-	const [inputMovieDate, setMovieDate] = useState();
+	const [inputMovieDate, setMovieDate] = useState(new Date());
 	const [inputMovieTime, setMovieTime] = useState("");
 	const [inputSeats, setMovieSeats] = useState("");
 	const [inputCostPerSeats, setCostPerSeats] = useState("");
@@ -53,15 +53,23 @@ function EditPageOngoingMovie() {
 		setIsLoading(false);
 	}, []);
 
-	const updateMovieData = async () => {
+	const updateMovieData = async (e) => {
+		e.preventDefault();
+		console.log({
+			movieId,
+			inputMovieTime,
+			inputMovieDate,
+			inputSeats,
+			inputCostPerSeats,
+		});
 		const response = await axios.put(
-			`${process.env.REACT_APP_BACKEND_URL}/api/movie/${id}`,
+			`${process.env.REACT_APP_BACKEND_URL}/api/currMovie/${id}`,
 			{
 				movieId,
-				inputMovieTime,
-				inputMovieDate,
-				inputSeats,
-				inputCostPerSeats,
+				movieTime: inputMovieTime,
+				movieDate: inputMovieDate,
+				seats: inputSeats,
+				costPerSeat: inputCostPerSeats,
 			},
 			{
 				headers: {
@@ -85,7 +93,7 @@ function EditPageOngoingMovie() {
 			{isLoading ? (
 				<CircularProgress />
 			) : (
-				<Paper elevation="10" style={paperStyle}>
+				<Paper elevation={10} style={paperStyle}>
 					<Grid align="center">
 						<h2 style={headerStyle}>Edit Ongoing Movie</h2>
 						<Typography>Enter Changes</Typography>
@@ -112,7 +120,7 @@ function EditPageOngoingMovie() {
 							fullWidth
 							type="date"
 							label="Movie Date"
-							placeholder="Enter MovieDate"
+							placeholder="Enter Movie Date"
 							value={inputMovieDate}
 							onChange={(e) => setMovieDate(e.target.value)}
 						/>

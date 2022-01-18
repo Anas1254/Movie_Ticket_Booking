@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Grid, CircularProgress } from "@mui/material";
+import { Paper, Grid, CircularProgress } from "@mui/material";
 import axios from "axios";
 import MoviesTable from "../components/Admin/MoviesTable";
 
@@ -9,7 +9,7 @@ const MovieData = () => {
 
 	async function getMovieData() {
 		const values = await axios.get(
-			`${process.env.REACT_APP_BACKEND_URL}/api/movie?page=0&size=8`
+			`${process.env.REACT_APP_BACKEND_URL}/api/movie?page=0&size=50`
 		);
 		if (values) {
 			setMovieList(values.data.data);
@@ -23,10 +23,18 @@ const MovieData = () => {
 		setIsLoading(false);
 	}, []);
 
+	const paperStyle = { padding: "30px 20px", width: 800, margin: "20px auto" };
+
 	return (
-		<Grid container item justifyContent="center" alignContent="center">
-			{isLoading ? <CircularProgress /> : <MoviesTable movieList={movieList} />}
-		</Grid>
+		<Paper style={paperStyle} elevation={4}>
+			<Grid container item justifyContent="center" alignContent="center">
+				{isLoading ? (
+					<CircularProgress />
+				) : (
+					<MoviesTable movieList={movieList} />
+				)}
+			</Grid>
+		</Paper>
 	);
 };
 

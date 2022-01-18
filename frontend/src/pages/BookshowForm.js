@@ -90,15 +90,15 @@ const BookshowForm = () => {
 			alignItems="center"
 			justifyContent="center"
 		>
-			<Paper elevation="10" style={paperStyle}>
+			<Paper elevation={10} style={paperStyle}>
 				{isLoading ? (
 					<CircularProgress />
 				) : (
 					<form onSubmit={submitHandler}>
-						<Grid align="center">
-							<h2 style={headerStyle}>BookShow</h2>
+						<Grid align="center" marginBottom="20px">
+							<h2 style={headerStyle}>Bookshow Form</h2>
 						</Grid>
-						<Grid item>
+						<Grid item marginBottom="20px">
 							<TextField
 								id="outlined-helperText"
 								label="Movie Name"
@@ -107,7 +107,7 @@ const BookshowForm = () => {
 								fullWidth
 							/>
 						</Grid>
-						<Grid item>
+						<Grid item marginBottom="20px">
 							<TextField
 								label="Movie Date"
 								id="movie_date"
@@ -116,15 +116,16 @@ const BookshowForm = () => {
 								fullWidth
 							/>
 						</Grid>
-						<Grid item>
+						<Grid item marginBottom="20px">
 							<TextField
 								id="movie_time"
 								value={movieTime}
 								label="Movie Time"
 								disabled
+								fullWidth
 							/>
 						</Grid>
-						<Grid item>
+						<Grid item marginBottom="20px">
 							<TextField
 								id="outlined-helperText"
 								label="Number of Seats"
@@ -133,7 +134,7 @@ const BookshowForm = () => {
 								fullWidth
 							/>
 						</Grid>
-						<Grid item>
+						<Grid item marginBottom="20px">
 							<TextField
 								id="outlined-helperText"
 								label="Cost Per Seat"
@@ -142,10 +143,10 @@ const BookshowForm = () => {
 								fullWidth
 							/>
 						</Grid>
-						<Typography>
+						<Typography marginBottom="10px">
 							You need to pay: Rs. {costPerSeat * inputSeats}
 						</Typography>
-						<Grid item>
+						<Grid item marginBottom="20px">
 							<Button type="submit" variant="contained">
 								Submit
 							</Button>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
 	Grid,
 	Paper,
@@ -43,7 +43,7 @@ const AddMovieForm = () => {
 				<CircularProgress />
 			) : (
 				<Paper elevation="10" style={paperStyle}>
-					<Grid align="center">
+					<Grid align="center" marginBottom="20px">
 						<h2 style={headerStyle}>Add New Movie</h2>
 						<Typography>Enter New MovieData</Typography>
 					</Grid>
@@ -54,6 +54,7 @@ const AddMovieForm = () => {
 							placeholder="Enter MovieName"
 							value={inputMovieName}
 							onChange={(e) => setMovieName(e.target.value)}
+							sx={{ marginBottom: "20px" }}
 						/>
 						<TextField
 							fullWidth
@@ -61,6 +62,7 @@ const AddMovieForm = () => {
 							placeholder="Enter MovieGenre"
 							value={inputMovieGenre}
 							onChange={(e) => setMovieGenre(e.target.value)}
+							sx={{ marginBottom: "20px" }}
 						/>
 
 						<TextField
@@ -69,6 +71,7 @@ const AddMovieForm = () => {
 							placeholder="Enter Movie Url"
 							value={inputMoviePoster}
 							onChange={(e) => setMoviePoster(e.target.value)}
+							sx={{ marginBottom: "20px" }}
 						/>
 
 						<Button
@@ -80,6 +83,7 @@ const AddMovieForm = () => {
 								event.preventDefault();
 								addNewMovie();
 							}}
+							sx={{ marginBottom: "20px" }}
 						>
 							ADD
 						</Button>

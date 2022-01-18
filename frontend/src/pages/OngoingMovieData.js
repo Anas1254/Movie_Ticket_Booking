@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { CircularProgress, Grid } from "@mui/material";
+import { CircularProgress, Grid, Paper } from "@mui/material";
 import axios from "axios";
 import OngoingMovie from "../components/Admin/OngoingMovieTable";
 
@@ -38,14 +38,18 @@ const OngoingMovieData = () => {
 		setIsLoading(false);
 	}, []);
 
+	const paperStyle = { padding: "30px 20px", width: 1000, margin: "20px auto" };
+
 	return (
-		<Grid container item alignContent="center" justifyContent="center">
-			{isLoading ? (
-				<CircularProgress />
-			) : (
-				<OngoingMovie movieList={movieList} />
-			)}
-		</Grid>
+		<Paper elevation={4} style={paperStyle}>
+			<Grid container item alignContent="center" justifyContent="center">
+				{isLoading ? (
+					<CircularProgress />
+				) : (
+					<OngoingMovie movieList={movieList} />
+				)}
+			</Grid>
+		</Paper>
 	);
 };
 

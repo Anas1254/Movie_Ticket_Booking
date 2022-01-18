@@ -1,5 +1,4 @@
-import { Grid, Paper, Avatar, TextField, Button } from "@mui/material";
-import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOutlined";
+import { Grid, Paper, TextField, Button } from "@mui/material";
 import React, { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
@@ -11,7 +10,6 @@ function Login() {
 
 	const paperStyle = { padding: "30px 20px", width: 400, margin: "20px auto" };
 	const headerStyle = { margin: "5px auto" };
-	const avatarStyle = { backgroundColor: "#1bbd7e" };
 
 	const UserEmailRef = useRef();
 	const UserPasswordRef = useRef();
@@ -37,7 +35,7 @@ function Login() {
 				localStorage.setItem("userName", response.data.data.user.name);
 				localStorage.setItem("isAdmin", response.data.data.user.isAdmin);
 
-				toast.info("Login Succesfully");
+				toast.info("Login Successfully");
 				setTimeout(() => {
 					navigate("/");
 					window.location.reload();
@@ -64,12 +62,9 @@ function Login() {
 	};
 
 	return (
-		<Grid>
-			<Paper elevation="10" style={paperStyle}>
-				<Grid align="center">
-					<Avatar style={avatarStyle}>
-						<AddCircleOutlineOutlinedIcon />
-					</Avatar>
+		<Paper elevation={4} style={paperStyle}>
+			<Grid container alignItems="space-around" justifyContent="center">
+				<Grid marginBottom="20px">
 					<h2 style={headerStyle}>Login</h2>
 				</Grid>
 				<form onSubmit={submitHandler}>
@@ -78,6 +73,7 @@ function Login() {
 						label="Email"
 						placeholder="Enter your Email"
 						ref={UserEmailRef}
+						sx={{ marginBottom: "20px" }}
 					/>
 
 					<TextField
@@ -85,6 +81,7 @@ function Login() {
 						label="password"
 						placeholder="set Password"
 						ref={UserPasswordRef}
+						sx={{ marginBottom: "20px" }}
 					/>
 
 					<Button fullWidth type="submit" variant="contained" color="primary">
@@ -92,8 +89,8 @@ function Login() {
 					</Button>
 				</form>
 				<ToastContainer />
-			</Paper>
-		</Grid>
+			</Grid>
+		</Paper>
 	);
 }
 

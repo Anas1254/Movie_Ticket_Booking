@@ -1,12 +1,4 @@
-import {
-	Grid,
-	Paper,
-	Avatar,
-	TextField,
-	Button,
-	Typography,
-} from "@mui/material";
-import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOutlined";
+import { Grid, Paper, TextField, Button, Typography } from "@mui/material";
 import React, { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
@@ -17,7 +9,6 @@ function SignUp() {
 
 	const paperStyle = { padding: "30px 20px", width: 400, margin: "20px auto" };
 	const headerStyle = { margin: "5px auto" };
-	const avatarStyle = { backgroundColor: "#1bbd7e" };
 
 	const UserNameRef = useRef();
 	const UserEmailRef = useRef();
@@ -34,6 +25,7 @@ function SignUp() {
 				},
 			}
 		);
+
 		if (response.data.statusCode === 200) {
 			localStorage.setItem("userToken", response.data.data.token);
 			localStorage.setItem("userEmail", email);
@@ -65,16 +57,15 @@ function SignUp() {
 	};
 
 	return (
-		<Grid>
-			<Paper elevation="10" style={paperStyle}>
-				<Grid align="center">
-					<Avatar style={avatarStyle}>
-						<AddCircleOutlineOutlinedIcon />
-					</Avatar>
+		<Paper elevation={4} style={paperStyle}>
+			<Grid container alignItems="space-around" justifyContainer="center">
+				<Grid
+					marginBottom="20px"
+					container
+					alignItems="space-around"
+					justifyContainer="center"
+				>
 					<h2 style={headerStyle}>SignUp</h2>
-					<Typography>
-						please fill this form first to create an Account
-					</Typography>
 				</Grid>
 				<form onSubmit={submitHandler}>
 					<TextField
@@ -82,12 +73,14 @@ function SignUp() {
 						label="Name"
 						placeholder="Enter your name"
 						ref={UserNameRef}
+						sx={{ marginBottom: "20px" }}
 					/>
 					<TextField
 						fullWidth
 						label="Email"
 						placeholder="Enter your Email"
 						ref={UserEmailRef}
+						sx={{ marginBottom: "20px" }}
 					/>
 
 					<TextField
@@ -95,21 +88,23 @@ function SignUp() {
 						label="password"
 						placeholder="set Password"
 						ref={UserPasswordRef}
+						sx={{ marginBottom: "20px" }}
 					/>
 					<TextField
 						fullWidth
 						label="confirm Password"
 						placeholder="confirm Password"
 						ref={UserConfirmPasswordRef}
+						sx={{ marginBottom: "20px" }}
 					/>
 
 					<Button fullWidth type="submit" variant="contained" color="primary">
 						submit
 					</Button>
 				</form>
-			</Paper>
-			<ToastContainer />
-		</Grid>
+				<ToastContainer />
+			</Grid>
+		</Paper>
 	);
 }
 

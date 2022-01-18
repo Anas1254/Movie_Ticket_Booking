@@ -22,7 +22,7 @@ function ButtonAppBar() {
 		localStorage.removeItem("userName");
 		localStorage.removeItem("isAdmin");
 		setUserToken("");
-		toast.info("Logout succesfully");
+		toast.info("Logout successfully");
 	};
 
 	useEffect(() => {
@@ -48,31 +48,41 @@ function ButtonAppBar() {
 				<Toolbar>
 					<Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
 						<Link to="/">
-							<span style={{ color: "#ffffff" }}>Movies</span>
+							<span style={{ color: "#ffffff", textDecoration: "none" }}>
+								Movies
+							</span>
 						</Link>
 					</Typography>
 					<SearchBar />
 					{userToken && (
 						<Button color="inherit">
 							<Link to="/user/my-bookings">
-								<span style={{ color: "#ffffff" }}>My Bookings</span>
+								<span style={{ color: "#ffffff", textDecoration: "none" }}>
+									My Bookings
+								</span>
 							</Link>
 						</Button>
 					)}
 					{userToken ? (
 						<Button color="inherit" onClick={logoutHandler}>
-							<span style={{ color: "#ffffff" }}>Logout</span>
+							<span style={{ color: "#ffffff", textDecoration: "none" }}>
+								Logout
+							</span>
 						</Button>
 					) : (
 						<>
 							<Link to="/login">
 								<Button color="inherit">
-									<span style={{ color: "#ffffff" }}>Login</span>
+									<span style={{ color: "#ffffff", textDecoration: "none" }}>
+										Login
+									</span>
 								</Button>
 							</Link>
 							<Button variant="outlined">
 								<Link to="/signup">
-									<span style={{ color: "#ffffff" }}>Sign Up</span>
+									<span style={{ color: "#ffffff", textDecoration: "none" }}>
+										Sign Up
+									</span>
 								</Link>
 							</Button>
 						</>
@@ -99,16 +109,36 @@ function ButtonAppBar() {
 								}}
 							>
 								<MenuItem>
-									<Link to="/admin/moviedata">Show All Movies</Link>
+									<Link
+										to="/admin/moviedata"
+										style={{ textDecoration: "none" }}
+									>
+										Show All Movies
+									</Link>
 								</MenuItem>
 								<MenuItem>
-									<Link to="/admin/ongoingmoviedata">Show Movie Schedules</Link>
+									<Link
+										to="/admin/ongoingmoviedata"
+										style={{ textDecoration: "none" }}
+									>
+										Show Movie Schedules
+									</Link>
 								</MenuItem>
 								<MenuItem>
-									<Link to="/admin/addMovieForm">Add Movie</Link>
+									<Link
+										to="/admin/addMovieForm"
+										style={{ textDecoration: "none" }}
+									>
+										Add Movie
+									</Link>
 								</MenuItem>
 								<MenuItem>
-									<Link to="/admin/addOngoingMovie">Add Ongoing Movie</Link>
+									<Link
+										to="/admin/addOngoingMovie"
+										style={{ textDecoration: "none" }}
+									>
+										Add Ongoing Movie
+									</Link>
 								</MenuItem>
 							</Menu>
 						</div>
