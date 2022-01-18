@@ -78,22 +78,22 @@ function EditPageMovie(props) {
 					<form>
 						<TextField
 							fullWidth
-							label="MovieName"
-							placeholder="Enter MovieName"
+							label="Movie Name"
+							placeholder="Enter Movie Name"
 							value={movieName}
 							onChange={(e) => setMovieName(e.target.value)}
 						/>
 						<TextField
 							fullWidth
-							label="MovieGenre"
-							placeholder="Enter MovieGenre"
+							label="Movie Genre"
+							placeholder="Enter Movie Genre"
 							value={movieGenre}
 							onChange={(e) => setMovieGenre(e.target.value)}
 						/>
 
 						<TextField
 							fullWidth
-							label="MovieUrl"
+							label="Movie Url"
 							placeholder="Enter Movie Url"
 							value={moviePoster}
 							onChange={(e) => setMoviePoster(e.target.value)}

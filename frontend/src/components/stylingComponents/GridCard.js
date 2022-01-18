@@ -1,10 +1,14 @@
 import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import { Grid } from "@mui/material";
 import TemplateCard from "../TemplateCard";
 import { CircularProgress } from "@mui/material";
 import axios from "axios";
+import { ToastContainer } from "react-toastify";
 
 function GridCard() {
+	let keyword = useParams().keyword;
+	keyword = keyword ? keyword : "";
 	const [userToken, setUserToken] = useState("");
 	const [isLoading, setIsLoading] = useState(false);
 	const [movieList, setMovieList] = useState([]); //this values is coming form the backend(movieList)
@@ -23,7 +27,7 @@ function GridCard() {
 	//Send get request to backend for getting list of movies
 	async function getMovieData() {
 		const values = await axios.get(
-			`${process.env.REACT_APP_BACKEND_URL}/api/movie?page=0&size=8`
+			`${process.env.REACT_APP_BACKEND_URL}/api/movie?page=0&size=8&term=${keyword}`
 		);
 		if (values) {
 			setMovieList(values.data.data);
@@ -32,15 +36,13 @@ function GridCard() {
 
 	// useEffect is triggered automatically when a page is loaded
 	useEffect(() => {
-		// console.log("Use effect");
-		// location.reload();
 		setUserToken(
 			localStorage.getItem("userToken") ? localStorage.getItem("userToken") : ""
 		);
 		setIsLoading(true);
 		getMovieData();
 		setIsLoading(false);
-	}, [userToken]);
+	}, [userToken, keyword]);
 
 	return (
 		<Grid
@@ -55,6 +57,7 @@ function GridCard() {
 			) : (
 				movieList.map((value) => <Grid item>{movieDisplay(value)}</Grid>)
 			)}
+			<ToastContainer />
 		</Grid>
 	);
 }

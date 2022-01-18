@@ -1,64 +1,145 @@
+import React, { useState, useEffect } from "react";
 import {
-  Grid,
-  Paper,
-  Avatar,
-  TextField,
-  Button,
-  Typography,
+	Grid,
+	Paper,
+	TextField,
+	Button,
+	Typography,
+	CircularProgress,
 } from "@mui/material";
-import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOutlined";
-
-import React from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import axios from "axios";
 
 function EditPageOngoingMovie() {
-  const paperStyle = { padding: "30px 20px", width: 400, margin: "20px auto" };
-  const headerStyle = { margin: "5px auto" };
-  const avatarStyle = { backgroundColor: "#1bbd7e" };
-  return (
-    <Grid>
-      <Paper elevation="10" style={paperStyle}>
-        <Grid align="center">
-          <Avatar style={avatarStyle}>
-            <AddCircleOutlineOutlinedIcon />
-          </Avatar>
-          <h2 style={headerStyle}>EditPage</h2>
-          <Typography>EnterChanges</Typography>
-        </Grid>
-        <form>
-          <TextField
-            fullWidth
-            label="MovieName"
-            placeholder="Enter your MovieName"
-          />
-          <TextField
-            fullWidth
-            label="MovieTime"
-            placeholder="Enter MovieTime "
-          />
+	const [userToken, setUserToken] = useState("");
+	const [isLoading, setIsLoading] = useState(false);
 
-          <TextField
-            fullWidth
-            label="MovieDate"
-            placeholder="Enter MovieDate"
-          />
-          <TextField
-            fullWidth
-            label="Availble Seats"
-            placeholder="Enter AvailbleSeats"
-          />
-          <TextField
-            fullWidth
-            label="Cost Per Seat"
-            placeholder="Enter Cost Per Seat"
-          />
+	const [movieId, setMovieId] = useState("");
+	const [movieName, setMovieName] = useState("");
+	const [inputMovieDate, setMovieDate] = useState();
+	const [inputMovieTime, setMovieTime] = useState("");
+	const [inputSeats, setMovieSeats] = useState("");
+	const [inputCostPerSeats, setCostPerSeats] = useState("");
 
-          <Button fullWidth type="submit" variant="contained" color="primary">
-            Update
-          </Button>
-        </form>
-      </Paper>
-    </Grid>
-  );
+	const { id } = useParams();
+	const navigate = useNavigate();
+
+	const paperStyle = { padding: "30px 20px", width: 400, margin: "20px auto" };
+	const headerStyle = { margin: "5px auto" };
+
+	const getMovieData = async () => {
+		const response = await axios.get(
+			`${process.env.REACT_APP_BACKEND_URL}/api/currMovie/${id}`
+		);
+		console.log(response);
+		if (response.data) {
+			setMovieId(response.data.data[0].movieId);
+			setMovieName(response.data.data[0].movie.movieName);
+			setMovieTime(response.data.data[0].movieTime);
+			setMovieDate(new Date(response.data.data[0].setMovieDate));
+			setMovieSeats(response.data.data[0].seats);
+			setCostPerSeats(response.data.data[0].costPerSeat);
+		}
+	};
+
+	useEffect(() => {
+		setUserToken(
+			localStorage.getItem("userToken") ? localStorage.getItem("userToken") : ""
+		);
+		setIsLoading(true);
+		getMovieData();
+		setIsLoading(false);
+	}, []);
+
+	const updateMovieData = async () => {
+		const response = await axios.put(
+			`${process.env.REACT_APP_BACKEND_URL}/api/movie/${id}`,
+			{
+				movieId,
+				inputMovieTime,
+				inputMovieDate,
+				inputSeats,
+				inputCostPerSeats,
+			},
+			{
+				headers: {
+					Authorization: `Bearer ${userToken}`,
+				},
+			}
+		);
+		console.log(response);
+		if (response.data.statusCode === 202) {
+			toast.success("updated successfully");
+			setTimeout(() => {
+				navigate("/admin/ongoingmoviedata");
+			}, 6000);
+		} else {
+			toast.error("Update Failed!");
+		}
+	};
+
+	return (
+		<Grid>
+			{isLoading ? (
+				<CircularProgress />
+			) : (
+				<Paper elevation="10" style={paperStyle}>
+					<Grid align="center">
+						<h2 style={headerStyle}>Edit Ongoing Movie</h2>
+						<Typography>Enter Changes</Typography>
+					</Grid>
+					<form onSubmit={updateMovieData}>
+						<TextField
+							fullWidth
+							label="Movie Name"
+							placeholder="Enter your MovieName"
+							value={movieName}
+							onChange={(e) => setMovieName(e.target.value)}
+							disabled
+						/>
+						<TextField
+							fullWidth
+							type="time"
+							label="Movie Time"
+							placeholder="Enter MovieTime"
+							value={inputMovieTime}
+							onChange={(e) => setMovieTime(e.target.value)}
+						/>
+
+						<TextField
+							fullWidth
+							type="date"
+							label="Movie Date"
+							placeholder="Enter MovieDate"
+							value={inputMovieDate}
+							onChange={(e) => setMovieDate(e.target.value)}
+						/>
+						<TextField
+							fullWidth
+							label="Available Seats"
+							placeholder="Enter AvailableSeats"
+							value={inputSeats}
+							onChange={(e) => setMovieSeats(e.target.value)}
+						/>
+						<TextField
+							fullWidth
+							label="Cost Per Seat"
+							placeholder="Enter Cost Per Seat"
+							value={inputCostPerSeats}
+							onChange={(e) => setCostPerSeats(e.target.value)}
+						/>
+
+						<Button fullWidth type="submit" variant="contained" color="primary">
+							Update
+						</Button>
+					</form>
+				</Paper>
+			)}
+			<ToastContainer />
+		</Grid>
+	);
 }
 
 export default EditPageOngoingMovie;

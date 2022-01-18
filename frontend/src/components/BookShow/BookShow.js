@@ -17,7 +17,7 @@ const BookShow = () => {
 	//Send get request to backend for getting list of movies
 	async function FetchBookMovieData() {
 		const values = await axios.get(
-			`${process.env.REACT_APP_BACKEND_URL}/api/currMovie/${id}`
+			`${process.env.REACT_APP_BACKEND_URL}/api/currMovie/list/${id}`
 		);
 		console.log(values);
 		if (values) {
@@ -51,7 +51,13 @@ const BookShow = () => {
 					</Grid>
 				</>
 			)}
-			{isLoading ? <CircularProgress /> : <BasicTable movieSchedule={values} />}
+			<Grid>
+				{isLoading ? (
+					<CircularProgress />
+				) : (
+					<BasicTable movieSchedule={values} />
+				)}
+			</Grid>
 		</div>
 	);
 };

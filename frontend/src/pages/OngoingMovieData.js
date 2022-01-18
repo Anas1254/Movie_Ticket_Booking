@@ -13,7 +13,7 @@ const OngoingMovieData = () => {
 
 	async function getMovieData() {
 		const values = await axios.get(
-			`${process.env.REACT_APP_BACKEND_URL}/api/currMovie/current/list?page=0&size=8`,
+			`${process.env.REACT_APP_BACKEND_URL}/api/currMovie/current/list?page=0&size=50`,
 			{
 				headers: {
 					Authorization: `Bearer ${userToken}`,

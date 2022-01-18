@@ -3,15 +3,12 @@ import { useParams, useNavigate } from "react-router-dom";
 import {
 	Grid,
 	TextField,
-	Select,
-	FormControl,
-	MenuItem,
-	InputLabel,
 	CircularProgress,
 	Button,
 	Paper,
 	Typography,
 } from "@mui/material";
+import { ToastContainer, toast } from "react-toastify";
 import axios from "axios";
 
 const BookshowForm = () => {
@@ -39,6 +36,8 @@ const BookshowForm = () => {
 			setMovieName(response.data.data[0].movie.movieName);
 			setCostPerSeat(response.data.data[0].costPerSeat);
 			setSeats(response.data.data[0].seats);
+		} else {
+			toast.error("Error getting information for the show");
 		}
 	};
 
@@ -64,13 +63,17 @@ const BookshowForm = () => {
 				headers: {
 					Authorization: `Bearer ${localStorage.getItem("userToken")}`,
 				},
+				validateStatus: function (status) {
+					return status < 500;
+				},
 			}
 		);
 		console.log(response);
 		if (response.data?.statusCode === 200) {
-			navigate("/");
+			toast.info(`You have successfully booked ${inputSeats} seats`);
+			setTimeout(() => navigate("/"), 6000);
 		} else {
-			alert("Something went wrong!");
+			toast.error("Something went wrong while booking!");
 		}
 	};
 	const submitHandler = (event) => {
@@ -150,6 +153,7 @@ const BookshowForm = () => {
 					</form>
 				)}
 			</Paper>
+			<ToastContainer />
 		</Grid>
 	);
 };

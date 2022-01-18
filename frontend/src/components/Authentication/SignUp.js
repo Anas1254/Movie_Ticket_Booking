@@ -9,6 +9,7 @@ import {
 import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOutlined";
 import React, { useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
 import axios from "axios";
 
 function SignUp() {
@@ -26,17 +27,22 @@ function SignUp() {
 	const signupHandler = async (fullname, email, password) => {
 		const response = await axios.post(
 			`${process.env.REACT_APP_BACKEND_URL}/api/register`,
-			{ fullname: fullname, email: email, password: password }
+			{ fullname: fullname, email: email, password: password },
+			{
+				validateStatus: function (status) {
+					return status < 500;
+				},
+			}
 		);
 		if (response.data.statusCode === 200) {
 			localStorage.setItem("userToken", response.data.data.token);
 			localStorage.setItem("userEmail", email);
 			localStorage.setItem("userName", fullname);
-			localStorage.setItem("isAdmin", response.data.data.user.isAdmin);
+			localStorage.setItem("isAdmin", response.data.data.isAdmin);
 			navigate("/");
 			window.location.reload();
 		} else {
-			alert("Signup Failed please try again!");
+			toast.error("Signup Failed please try again!");
 		}
 	};
 
@@ -50,12 +56,11 @@ function SignUp() {
 			UserConfirmPasswordRef.current.querySelector("input").value;
 
 		console.log(fullname, email, password, confirmPassword);
-		// Validation
 
 		if (password === confirmPassword) {
 			signupHandler(fullname, email, password);
 		} else {
-			alert("Password and confirm password are not same!");
+			toast.error("Password and confirm password are not same!");
 		}
 	};
 
@@ -103,6 +108,7 @@ function SignUp() {
 					</Button>
 				</form>
 			</Paper>
+			<ToastContainer />
 		</Grid>
 	);
 }

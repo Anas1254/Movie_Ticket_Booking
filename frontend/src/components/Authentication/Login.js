@@ -2,6 +2,8 @@ import { Grid, Paper, Avatar, TextField, Button } from "@mui/material";
 import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOutlined";
 import React, { useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 
 function Login() {
@@ -15,19 +17,37 @@ function Login() {
 	const UserPasswordRef = useRef();
 
 	const loginHandler = async (email, password) => {
-		const response = await axios.post(
-			`${process.env.REACT_APP_BACKEND_URL}/api/login`,
-			{ email: email, password: password }
-		);
-		if (response.data.statusCode === 200) {
-			localStorage.setItem("userToken", response.data.data.token);
-			localStorage.setItem("userEmail", response.data.data.user.email);
-			localStorage.setItem("userName", response.data.data.user.name);
-			localStorage.setItem("isAdmin", response.data.data.user.isAdmin);
-			navigate("/");
-			window.location.reload();
-		} else {
-			alert("Login Failed please try again!");
+		let response;
+		try {
+			response = await axios.post(
+				`${process.env.REACT_APP_BACKEND_URL}/api/login`,
+				{ email: email, password: password },
+				{
+					validateStatus: function (status) {
+						return status < 500;
+					},
+				}
+			);
+
+			console.log(response);
+
+			if (response.data.statusCode === 200) {
+				localStorage.setItem("userToken", response.data.data.token);
+				localStorage.setItem("userEmail", response.data.data.user.email);
+				localStorage.setItem("userName", response.data.data.user.name);
+				localStorage.setItem("isAdmin", response.data.data.user.isAdmin);
+
+				toast.info("Login Succesfully");
+				setTimeout(() => {
+					navigate("/");
+					window.location.reload();
+				}, 6000);
+			} else {
+				toast.error("Login Failed");
+			}
+		} catch (error) {
+			// console.log(response);
+			toast.error("Server Error");
 		}
 	};
 
@@ -71,6 +91,7 @@ function Login() {
 						Login
 					</Button>
 				</form>
+				<ToastContainer />
 			</Paper>
 		</Grid>
 	);

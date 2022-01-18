@@ -9,6 +9,8 @@ import {
 	Box,
 	AppBar,
 } from "@mui/material";
+import { toast } from "react-toastify";
+import { SearchBar } from "./SearchBar";
 
 function ButtonAppBar() {
 	const [userToken, setUserToken] = useState("");
@@ -20,6 +22,7 @@ function ButtonAppBar() {
 		localStorage.removeItem("userName");
 		localStorage.removeItem("isAdmin");
 		setUserToken("");
+		toast.info("Logout succesfully");
 	};
 
 	useEffect(() => {
@@ -48,6 +51,7 @@ function ButtonAppBar() {
 							<span style={{ color: "#ffffff" }}>Movies</span>
 						</Link>
 					</Typography>
+					<SearchBar />
 					{userToken && (
 						<Button color="inherit">
 							<Link to="/user/my-bookings">
@@ -95,10 +99,16 @@ function ButtonAppBar() {
 								}}
 							>
 								<MenuItem>
-									<Link to="/admin/moviedata">Edit Movie</Link>
+									<Link to="/admin/moviedata">Show All Movies</Link>
 								</MenuItem>
 								<MenuItem>
-									<Link to="/admin/ongoingmoviedata">Edit Ongoing Movie</Link>
+									<Link to="/admin/ongoingmoviedata">Show Movie Schedules</Link>
+								</MenuItem>
+								<MenuItem>
+									<Link to="/admin/addMovieForm">Add Movie</Link>
+								</MenuItem>
+								<MenuItem>
+									<Link to="/admin/addOngoingMovie">Add Ongoing Movie</Link>
 								</MenuItem>
 							</Menu>
 						</div>
