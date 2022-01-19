@@ -35,11 +35,11 @@ function Login() {
 				localStorage.setItem("userName", response.data.data.user.name);
 				localStorage.setItem("isAdmin", response.data.data.user.isAdmin);
 
-				toast.info("Login Successfully");
+				toast.success("Login Successfully");
 				setTimeout(() => {
 					navigate("/");
 					window.location.reload();
-				}, 6000);
+				}, 2000);
 			} else {
 				toast.error("Login Failed");
 			}
@@ -79,6 +79,7 @@ function Login() {
 					<TextField
 						fullWidth
 						label="password"
+						type="password"
 						placeholder="set Password"
 						ref={UserPasswordRef}
 						sx={{ marginBottom: "20px" }}

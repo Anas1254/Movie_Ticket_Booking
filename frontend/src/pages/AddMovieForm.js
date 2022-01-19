@@ -7,6 +7,7 @@ import {
 	Typography,
 	CircularProgress,
 } from "@mui/material";
+import { ToastContainer, toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
@@ -34,7 +35,10 @@ const AddMovieForm = () => {
 				},
 			}
 		);
-		navigate("/");
+		toast.info("Movie Added Successfully");
+		setTimeout(() => {
+			navigate("/");
+		}, 6000);
 	};
 
 	return (
@@ -90,6 +94,7 @@ const AddMovieForm = () => {
 					</form>
 				</Paper>
 			)}
+			<ToastContainer />
 		</Grid>
 	);
 };

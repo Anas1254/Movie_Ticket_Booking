@@ -8,29 +8,29 @@ import Typography from "@mui/material/Typography";
 import { Link } from "react-router-dom";
 
 const TemplateCard = (props) => {
-  return (
-    <Card sx={{ width: 345 }}>
-      <CardMedia
-        component="img"
-        alt="green iguana"
-        height="140"
-        image={props.imgsrc}
-      />
-      <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
-          {props.movieName}
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-          Genre: {props.movieGenre}
-        </Typography>
-      </CardContent>
-      <CardActions>
-        <Link to={`bookshow/${props.movieId}`}>
-          <Button size="small">Book Now</Button>
-        </Link>
-      </CardActions>
-    </Card>
-  );
+	return (
+		<Card sx={{ width: 345 }}>
+			<CardMedia
+				component="img"
+				alt="green iguana"
+				height="140"
+				image={props.imgsrc}
+			/>
+			<CardContent>
+				<Typography gutterBottom variant="h5" component="div">
+					{props.movieName}
+				</Typography>
+				<Typography variant="body2" color="text.secondary">
+					Genre: {props.movieGenre}
+				</Typography>
+			</CardContent>
+			<CardActions>
+				<Link to={`bookshow/${props.movieId}`}>
+					<Button size="small">Book Now</Button>
+				</Link>
+			</CardActions>
+		</Card>
+	);
 };
 
 export default TemplateCard;

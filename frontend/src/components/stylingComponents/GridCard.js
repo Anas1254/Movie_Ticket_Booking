@@ -27,7 +27,7 @@ function GridCard() {
 	//Send get request to backend for getting list of movies
 	async function getMovieData() {
 		const values = await axios.get(
-			`${process.env.REACT_APP_BACKEND_URL}/api/movie?page=0&size=8&term=${keyword}`
+			`${process.env.REACT_APP_BACKEND_URL}/api/movie?page=0&size=50&term=${keyword}`
 		);
 		if (values) {
 			setMovieList(values.data.data);

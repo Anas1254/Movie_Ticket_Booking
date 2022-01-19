@@ -33,6 +33,14 @@ function OngoingMovie(props) {
 			toast.error("Server Error");
 		}
 	};
+	const ShowCurrentDate = () => {
+		var date = new Date().getDate();
+		var month = new Date().getMonth() + 1;
+		month = String(month).padStart(2, "0");
+		var year = new Date().getFullYear();
+
+		return year + "-" + month + "-" + date;
+	};
 
 	return (
 		<>
@@ -53,7 +61,11 @@ function OngoingMovie(props) {
 						{props.movieList.map((item) => (
 							<TableRow
 								key={item.id}
-								sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+								sx={{
+									"&:last-child td, &:last-child th": { border: 0 },
+									backgroundColor:
+										item.movieDate > ShowCurrentDate() ? "white" : "red",
+								}}
 							>
 								<TableCell>{item.movie.movieName}</TableCell>
 								<TableCell>{item.movieTime}</TableCell>

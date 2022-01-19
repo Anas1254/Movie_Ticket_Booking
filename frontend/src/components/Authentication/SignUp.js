@@ -87,6 +87,7 @@ function SignUp() {
 						fullWidth
 						label="password"
 						placeholder="set Password"
+						type="password"
 						ref={UserPasswordRef}
 						sx={{ marginBottom: "20px" }}
 					/>
@@ -94,6 +95,7 @@ function SignUp() {
 						fullWidth
 						label="confirm Password"
 						placeholder="confirm Password"
+						type="password"
 						ref={UserConfirmPasswordRef}
 						sx={{ marginBottom: "20px" }}
 					/>

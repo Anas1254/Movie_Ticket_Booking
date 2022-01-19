@@ -22,11 +22,10 @@ function ButtonAppBar() {
 		localStorage.removeItem("userName");
 		localStorage.removeItem("isAdmin");
 		setUserToken("");
-		toast.info("Logout successfully");
+		toast.success("Logout successfully");
 	};
 
 	useEffect(() => {
-		console.log("use Effect");
 		setUserToken(
 			localStorage.getItem("userToken") ? localStorage.getItem("userToken") : ""
 		);
@@ -71,13 +70,14 @@ function ButtonAppBar() {
 						</Button>
 					) : (
 						<>
-							<Link to="/login">
-								<Button color="inherit">
+							<Button color="inherit">
+								<Link to="/login">
 									<span style={{ color: "#ffffff", textDecoration: "none" }}>
 										Login
 									</span>
-								</Button>
-							</Link>
+								</Link>
+							</Button>
+
 							<Button variant="outlined">
 								<Link to="/signup">
 									<span style={{ color: "#ffffff", textDecoration: "none" }}>
